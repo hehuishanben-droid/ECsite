@@ -1,0 +1,150 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>会員情報変更画面</title>
+    
+</head>
+<body>
+
+<h2>会員情報変更</h2>
+<div class="message">
+    <c:if test="${not empty successMessage}">
+        <p class="success">${successMessage}</p>
+    </c:if>
+    <c:if test="${not empty errorMessage}">
+        <p class="error">${errorMessage}</p>
+    </c:if>
+</div>
+<form action="AccountChangeServlet" method="post">
+    <label>氏名:</label>
+    <input type="text" name="shimei" value="${account.shimei}" required>
+
+    <label>パスワード:</label>
+    <input type="password" name="password" value="${account.password}" required>
+
+    <label>郵便番号:</label>
+    <input type="text" name="yuubin_bangou" value="${account.yuubinBangou}">
+
+    <label>住所:</label>
+    <input type="text" name="address" value="${account.address}">
+
+    <label>電話番号:</label>
+    <input type="text" name="denwa_bangou" value="${account.denwaBangou}">
+
+    <label>生年月日:</label>
+    <input type="date" name="seinengappi" value="<fmt:formatDate value='${account.seinengappi}' pattern='yyyy-MM-dd'/>">
+
+    <label>メールアドレス:</label>
+    <input type="email" name="mail_address" value="${account.mailAddress}">
+
+    <label>支払い方法:</label>
+    <input type="text" name="shiharaiHouhou" value="${account.shiharaiHouhou}">
+    
+    <input type="submit" value="変更を保存">
+</form>
+
+<div class="back-link">
+    <a href="MenuServlet">← メニューに戻る</a>
+</div>
+
+</body>
+</html>
+
+<style>
+        body {
+            font-family: sans-serif;
+            background-color: #000000;
+            padding: 40px;
+        }
+
+        h2 {
+        font-family: 'Oswald', sans-serif;
+            text-align: center;
+             color: white;
+             font-weight: bold;
+        }
+
+        form {
+            max-width: 500px;
+            margin: auto;
+            background: #000000;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        label {
+        font-family: 'Oswald', sans-serif;
+            display: block;
+            margin-top: 15px;
+            color: white;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+    display: block;
+    margin: 25px auto 0 auto; 
+    width: 150px;             
+    padding: 12px;
+    background-color: #ff0000;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .message {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+       .success {
+    font-size: 1.5em; /* 1.5倍の大きさ */
+    color: red;     /* もし色も変えたい場合 */
+}
+
+.error {
+    font-size: 1.5em;
+    color: red;
+    font-family: 'Oswald', sans-serif;
+    font-weight: bold;
+}
+
+
+        .back-link {
+            text-align: center;
+            margin-top: 30px;
+           
+        }
+
+        .back-link a {
+            color: #555;
+            text-decoration: none;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
