@@ -380,14 +380,14 @@ document.addEventListener("DOMContentLoaded", function () {
 	      // 遅延時間を表示順にずらす（例：100msずつ）
 	      setTimeout(() => {
 	        entry.target.classList.add('visible');
-	      }, shownCount * 300);
+	      }, shownCount * 100);
 	
 	      shownCount++; // 次の要素の遅延時間を増やす
 	      obs.unobserve(entry.target);
 	    }
 	  });
 	}, {
-	  threshold: 0.4
+	  threshold: 0.2
 	});
   itemBoxes.forEach(el => boxObserver.observe(el));
 });

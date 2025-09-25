@@ -106,6 +106,12 @@ h1{text-shadow: 0 0 10px red, 0 0 20px crimson;}
             background-color: #af0e0e;
             transform: scale(1.05);
         }
+        .disabled-button {
+		    background-color: #ccc;
+		    color: #666;
+		    cursor: not-allowed;
+		}
+        
     </style>
 </head>
 <body>
@@ -129,16 +135,32 @@ h1{text-shadow: 0 0 10px red, 0 0 20px crimson;}
                             <p><strong>在庫数:</strong> ${shohin.zaikoSuuryou} 個</p>
                             <p><strong>商品説明:</strong><br>${shohin.shouhinSetsumei}</p>
                         </div>
-
+						<!-- メッセージ -->
+				        <c:if test="${not empty successMessage}">
+				            <p style="color: #00ffff;">${successMessage}</p>
+				        </c:if>
+				        <c:if test="${not empty errorMessage}">
+				            <p style="color: #ff6666;">${errorMessage}</p>
+				        </c:if>
                         <!-- 商品情報の下に表示 -->
+						
                         <div class="back-links">
-                            <form action="CartServlet" method="post">
-                                <input type="hidden" name="shohin_id" value="${shohin.shohinId}">
-                                <label>数量:
-                                    <input type="number" name="quantity" value="1" min="1" max="${shohin.zaikoSuuryou}">
-                                </label><br><br>
-                                <button type="submit" class="register-button">カートに追加</button>
-                            </form>
+                            <c:choose>
+						    <c:when test="${shohin.zaikoSuuryou > 0}">
+
+						        <form action="CartServlet" method="post">
+						            <input type="hidden" name="shohin_id" value="${shohin.shohinId}">
+						            <label>数量:
+						                <input type="number" name="quantity" value="1" min="1" max="${shohin.zaikoSuuryou}">
+						            </label><br><br>
+						            <button type="submit" class="register-button">カートに追加</button>
+						        </form>
+						    </c:when>
+						    <c:otherwise>
+						        <p style="color: #ff6666;">商品がありません</p>
+						        <button type="button" class="register-button disabled-button" disabled>カートに追加</button>
+						    </c:otherwise>
+						</c:choose>
                             <a href="CartListServlet" class="register-button">ショッピングカート画面へ</a>
                             <a href="MenuServlet" class="register-button">メニューへ</a>
                         </div>

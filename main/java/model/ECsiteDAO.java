@@ -671,5 +671,52 @@ return success;
         return 0;
     }
         
+    public boolean updateZaiko(int shohinId, int quantity) {
+        String sql = "UPDATE shohin " +
+                     "SET zaiko_suuryou = zaiko_suuryou - ? " +
+                     "WHERE shohin_id = ? AND zaiko_suuryou >= ?";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, quantity);
+            pstmt.setInt(2, shohinId);
+            pstmt.setInt(3, quantity);
+
+            int rows = pstmt.executeUpdate();
+            return rows > 0;  // 成功したら true
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    //無限スクロール追加(無限スクロール)
+    public List<Shohin> getShohinList(int offset, int limit) throws SQLException {
+        String sql = "SELECT * FROM shohin ORDER BY shohin_id OFFSET ?";
+        List<Shohin> list = new ArrayList<>();
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, offset);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Shohin s = new Shohin();
+                s.setShohinId(rs.getInt("shohin_id"));
+                s.setShouhinMei(rs.getString("shouhin_mei"));
+                s.setKakaku(rs.getInt("kakaku"));
+                s.setShouhinGazou(rs.getString("shouhin_gazou"));
+        
+                list.add(s);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
 
 }

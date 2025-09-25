@@ -65,9 +65,9 @@
         <label>商品カテゴリ</label>
         <select name="shouhinCategory" required>
     		<option value="">-- 全て --</option>
-				<option value="バイク１">バイク１</option>
-				<option value="ガンダム">ガンダム</option>
-				<option value="書籍">書籍</option>
+				<option value="HG">HG [ハイグレード]</option>
+				<option value="RG">RG [リアルグレード]</option>
+				<option value="MG">MG [マスターグレード]</option>
 		</select>
 
         <label>商品説明</label>
